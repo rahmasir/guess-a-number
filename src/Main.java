@@ -1,15 +1,36 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.InputMismatchException;
+import java.util.Random;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        int target = random.nextInt(100) + 1;
+        int chance = 5;
+        while(chance > 0) {
+            System.out.print("guess a number between 1 and 100 (inclusive, chance: " + chance + " time): ");
+            try {
+                int guess = scanner.nextInt();
+                if(guess == target) {
+                    System.out.println("Congratulations! You win!");
+                    break;
+                } else if(guess < target) {
+                    System.out.println("Too low!");
+                } else {
+                    System.out.println("Too high!");
+                }
+                chance--;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please try again.");
+                continue;
+            }
         }
+
+        if(chance == 0) {
+            System.out.println("you lost! target was " + target);
+        }
+
     }
 }
